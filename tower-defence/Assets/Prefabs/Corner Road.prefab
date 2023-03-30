@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Corner Road
       objectReference: {fileID: 0}
+    - target: {fileID: 4632131918719940150, guid: db848db5bbcecf6469c030cbf1070ec9, type: 3}
+      propertyPath: m_TagString
+      value: Path
+      objectReference: {fileID: 0}
     - target: {fileID: 7290442709395506288, guid: db848db5bbcecf6469c030cbf1070ec9, type: 3}
       propertyPath: m_RootOrder
       value: 0

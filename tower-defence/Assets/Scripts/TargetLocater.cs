@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class TargetLocater : MonoBehaviour
@@ -31,6 +30,7 @@ public class TargetLocater : MonoBehaviour
             if (!(targetDistance < maxDistance))
                 continue;
             closestTarger = enemy.transform;
+            maxDistance = targetDistance;
         }
         _target = closestTarger;
     }

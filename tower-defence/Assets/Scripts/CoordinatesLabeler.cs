@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEditor;
 using TMPro;
-using System;
 
 [ExecuteAlways]
 public class CoordinatesLabeler : MonoBehaviour
@@ -17,9 +16,9 @@ public class CoordinatesLabeler : MonoBehaviour
     {
         _wayPoint = GetComponentInParent<WayPoint>();
         _label = GetComponent<TMP_Text>();
+        _label.enabled = false;
         DisplayCoordinates();
     }
-
     private void Update()
     {
         ColorCoordinates();
@@ -33,17 +32,14 @@ public class CoordinatesLabeler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
             _label.enabled = !_label.enabled;
     }
-
     private void ColorCoordinates()
     {
         _label.color = _wayPoint.IsPlaycable ? defaultColor : blovkedColor;
     }
-
     private void UpdateObjectName()
     {
         transform.parent.name = _coordinates.ToString();
     }
-
     private void DisplayCoordinates()
     {
         var position = transform.parent.position;

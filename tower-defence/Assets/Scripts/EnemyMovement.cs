@@ -3,6 +3,8 @@ using System.Collections.Generic; // lists
 using System.Collections;
 using System;
 
+
+[RequireComponent(typeof(Enemy))]
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private List<WayPoint> path = new List<WayPoint>();
@@ -13,6 +15,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 finalPos;
 
     private WaitForEndOfFrame _pathwaitTime;
+    private Enemy _enemy;
 
     private void OnEnable()
     {
@@ -24,6 +27,7 @@ public class EnemyMovement : MonoBehaviour
     private void Start()
     {
         _pathwaitTime = new WaitForEndOfFrame();
+        _enemy = GetComponent<Enemy>();
     }
 
     private void ReturnToStart()
@@ -35,11 +39,19 @@ public class EnemyMovement : MonoBehaviour
     {
         path.Clear();
 
-        var wayPoints = GameObject.FindGameObjectsWithTag("Path");
-        foreach (var wayPoint in wayPoints)
+        var parent = GameObject.FindGameObjectWithTag("Path");
+        foreach (Transform child in parent.transform)
         {
-            path.Add(wayPoint.GetComponent<WayPoint>());
+            var wayPoint = child.GetComponent<WayPoint>();
+            if (wayPoint != null)
+                path.Add(wayPoint);
         }
+    }
+
+    private void FinishPath()
+    {
+        _enemy.StealGold();
+        gameObject.SetActive(false);
     }
 
     private IEnumerator ProcessMovement()
@@ -58,6 +70,6 @@ public class EnemyMovement : MonoBehaviour
                 yield return _pathwaitTime;
             }
         }
-        gameObject.SetActive(false);
+        FinishPath();
     }
 }

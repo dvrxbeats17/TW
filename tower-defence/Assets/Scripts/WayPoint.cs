@@ -3,18 +3,18 @@ using UnityEngine;
 public class WayPoint : MonoBehaviour
 {
     [SerializeField] private bool isPlaycable;
-    [SerializeField] private GameObject Tower;
-
     public bool IsPlaycable
     {
         get { return isPlaycable; }
     }
+    [SerializeField] private Tower tower;
+
 
     private void OnMouseDown()
     {
         if (!isPlaycable)
             return;
-        Instantiate(Tower, gameObject.transform.position, Quaternion.identity);
-        isPlaycable = false;
+        bool isPlaced = tower.CreateTower(tower, transform.position);
+        isPlaycable = !isPlaced;
     }
 }

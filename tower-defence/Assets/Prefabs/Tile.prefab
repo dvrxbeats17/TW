@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaycable: 1
-  Tower: {fileID: 3219458064393657486, guid: e9dea844c0afceb4ba5b03ef0050364d, type: 3}
+  tower: {fileID: 1542749235486096675, guid: e9dea844c0afceb4ba5b03ef0050364d, type: 3}
 --- !u!65 &3108583797279188594
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,12 +1,11 @@
 using UnityEngine;
-using System;
 using System.Collections;
 
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyPrefab;
-    [SerializeField] private float waitToSpawn = 1.5f;
-    [SerializeField] private int poolSize = 5;
+    [SerializeField] [Range(0.1f, 30f)] private float waitToSpawn = 1.5f;
+    [SerializeField] [Range(1, 15)] private int poolSize = 5;
 
     private WaitForSecondsRealtime _waitTime;
     private GameObject[] _pool;
@@ -15,7 +14,6 @@ public class ObjectPool : MonoBehaviour
     {
         PopulatePool();
     }
-
     private void PopulatePool()
     {
         _pool = new GameObject[poolSize];
@@ -26,13 +24,11 @@ public class ObjectPool : MonoBehaviour
             _pool[i].SetActive(false);
         }
     }
-
     private void Start()
     {
         _waitTime = new WaitForSecondsRealtime(waitToSpawn);
         StartCoroutine(SpawnEnemy());
     }
-
     private IEnumerator SpawnEnemy()
     {
         while (true)
@@ -42,7 +38,6 @@ public class ObjectPool : MonoBehaviour
         }
         
     }
-
     private void EnableObjectInPool()
     {
         foreach(var enemy in _pool)

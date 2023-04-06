@@ -6,17 +6,19 @@ using TMPro;
 public class CoordinatesLabeler : MonoBehaviour
 {
     [SerializeField] private Color defaultColor = Color.white;
-    [SerializeField] private Color blovkedColor = Color.gray;
+    [SerializeField] private Color blockedColor = Color.red;
+    [SerializeField] private Color exploredColor = Color.yellow;
+    [SerializeField] private Color pathColor = new Color(1f, 0.5f, 0f);
 
     private TMP_Text _label;
     private Vector2Int _coordinates;
-    private WayPoint _wayPoint;
+    private GridManager _gridManager;
 
     private void Awake()
     {
-        _wayPoint = GetComponentInParent<WayPoint>();
+        _gridManager = FindObjectOfType<GridManager>();
         _label = GetComponent<TMP_Text>();
-        _label.enabled = false;
+        _label.enabled = true;
         DisplayCoordinates();
     }
     private void Update()
@@ -34,7 +36,23 @@ public class CoordinatesLabeler : MonoBehaviour
     }
     private void ColorCoordinates()
     {
-        _label.color = _wayPoint.IsPlaycable ? defaultColor : blovkedColor;
+        if (_gridManager == null)
+            return;
+
+        Node node = _gridManager.GetNode(_coordinates);
+
+
+        if (node == null)
+            return;
+
+        if (!node.isWalkable)
+            _label.color = blockedColor;
+        else if (node.isPath)
+            _label.color = pathColor;
+        else if (node.isExplored)
+            _label.color = exploredColor;
+        else
+            _label.color = defaultColor;
     }
     private void UpdateObjectName()
     {
